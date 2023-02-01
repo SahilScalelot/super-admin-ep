@@ -57,31 +57,6 @@ export class DiscountsComponent implements OnInit {
     this.search = _.debounce(this.search, 500);
   }
 
-  // getEvent(event: any = ''): void {
-  //   this.isLoading = true;
-  //   const page = event ? (event.pageIndex + 1) : 1;
-  //   const filter: any = {
-  //     page: page || '1',
-  //     limit: event?.pageSize || '10',
-  //     search: "",
-  //     sortfield: event?.active || "_id",
-  //     sortoption: event?.direction || "-1",
-  //   };
-  //   this._discountsService.getList(filter).subscribe((result: any) => {
-  //     if (result && result.IsSuccess) {
-  //       this.products = result.Data.docs;
-  //       const pagination: any = this._globalFunctions.copyObject(result.Data);
-  //       delete pagination.docs;
-  //       this.pagination = pagination;
-  //     } else {
-  //       this._globalFunctions.successErrorHandling(result, this, true);
-  //     }
-  //     this.isLoading = false;
-  //   }, (error: any) => {
-  //     this._globalFunctions.errorHanding(error, this, true);
-  //     this.isLoading = false;
-  //   });
-  // }
   getEvent(): void {
     this.isLoading = true;
     this._discountsService.getList(this.filterObj).subscribe((result: any) => {
@@ -242,7 +217,7 @@ export class DiscountsComponent implements OnInit {
     this.discountsForm = this._formBuilder.group({
       discountid    : [itemsListObj?._id || ''],
       discountname  : [itemsListObj?.discountname || '', [Validators.required]],
-      discounttype  : [{value: itemsListObj?.discounttype || 'discount_on_total_bill', disabled: true}, [Validators.required]],
+      discounttype  : [itemsListObj?.discounttype || '', [Validators.required]],
       description   : [itemsListObj?.description || '', [Validators.required]],
       discount      : [itemsListObj?.discount || '', [Validators.required]],
       status        : [itemsListObj?.status || false],

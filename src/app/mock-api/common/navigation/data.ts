@@ -26,12 +26,12 @@ export const defaultNavigation: FuseNavigationItem[] = [
         type : 'basic',
         icon : 'heroicons_outline:view-grid-add',
         link : '/admin/event-categories'
-    },{
-        id   : 'ourProduct',
-        title: 'Our Product',
-        type : 'basic',
-        icon : 'heroicons_outline:view-grid',
-        link : '/admin/our-product'
+    // },{
+    //     id   : 'ourProduct',
+    //     title: 'Our Product',
+    //     type : 'basic',
+    //     icon : 'heroicons_outline:view-grid',
+    //     link : '/admin/our-product'
     },{
         id   : 'promotionPlans',
         title: 'Promotion Plans',

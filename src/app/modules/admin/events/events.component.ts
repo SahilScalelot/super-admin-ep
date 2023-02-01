@@ -60,9 +60,7 @@ export class EventsComponent implements OnInit {
     this.isLoading = true;
     this._apiService.getList(this.filterObj).subscribe((result: any) => {
       if (result && result.IsSuccess) {
-        this.products = result.Data.docs;
-        console.log(result.Data.docs);
-        
+        this.products = result.Data.docs;        
         const pagination: any = this._globalFunctions.copyObject(result.Data);
         delete pagination.docs;
         this.pagination = pagination;
@@ -108,6 +106,8 @@ export class EventsComponent implements OnInit {
     }
     // this._prepareItemsListForm(item);
     this.selectedProduct = item;
+    console.log(this.selectedProduct);
+    
   }
 
   showFlashMessage(type: 'success' | 'error'): void {
