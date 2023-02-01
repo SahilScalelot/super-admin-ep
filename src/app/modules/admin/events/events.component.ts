@@ -140,14 +140,8 @@ export class EventsComponent implements OnInit {
         const product = organizerObj;
         const index = this.products.findIndex((item: any) => item.id === product._id);
         if (product._id != '' && index != -1) {
-          this.products.splice(index, 1);
-          // Delete the product on the server
           this._apiService.approve(product._id).subscribe(() => {
-            // Close the details
-            this.closeDetails();
           });
-        } else if (product._id == '') {
-          this.products.splice(0, 1);
         }
         this.closeDetails();
       } else {

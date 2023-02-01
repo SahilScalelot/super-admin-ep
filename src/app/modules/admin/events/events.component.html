@@ -37,6 +37,7 @@
               matSort matSortDisableClear (matSortChange)="sortField($event)">
               <div [mat-sort-header]="'name'">Event Names</div>
               <div class="hidden lg:block" [mat-sort-header]="'event_type'">Event Type</div>
+              <div class="hidden lg:block">Organizers</div>
               <div class="hidden lg:block" [mat-sort-header]="'is_live'">Is Live</div>
               <div class="hidden lg:block" [mat-sort-header]="'is_approved'">Is Approved</div>
               <div class="hidden lg:block" [mat-sort-header]="'status'">Status</div>
@@ -48,41 +49,42 @@
 
                 <div class="inventory-grid grid items-center gap-4 py-3 px-6 md:px-8 border-b">
                   <!-- Name -->
-                  <div class="truncate">{{(product.display_name) ? product.display_name : 'N/A'}}</div>
-                  <div class="truncate">{{(product.event_type && constants.eventTypeObj[product.event_type]) ? constants.eventTypeObj[product.event_type] : 'N/A'}}</div>
+                  <div class="truncate">{{(product?.display_name) ? product?.display_name : 'N/A'}}</div>
+                  <div class="truncate">{{(product?.event_type && constants?.eventTypeObj[product?.event_type]) ? constants?.eventTypeObj[product?.event_type] : 'N/A'}}</div>
+                  <div class="truncate">{{(product?.createdBy?.name) ? product?.createdBy?.name : 'N/A'}}</div>
                   <!-- Active -->
                   <div class="hidden lg:block">
-                    <ng-container *ngIf="product.is_live">
+                    <ng-container *ngIf="product?.is_live">
                       <mat-icon class="text-green-400 icon-size-5" [svgIcon]="'heroicons_solid:check'"></mat-icon>
                     </ng-container>
-                    <ng-container *ngIf="!product.is_live">
+                    <ng-container *ngIf="!product?.is_live">
                       <mat-icon class="text-gray-400 icon-size-5" [svgIcon]="'heroicons_solid:x'"></mat-icon>
                     </ng-container>
                   </div>
                   <!-- Active -->
                   <div class="hidden lg:block">
-                    <ng-container *ngIf="product.is_approved">
+                    <ng-container *ngIf="product?.is_approved">
                       <mat-icon class="text-green-400 icon-size-5" [svgIcon]="'heroicons_solid:check'"></mat-icon>
                     </ng-container>
-                    <ng-container *ngIf="!product.is_approved">
+                    <ng-container *ngIf="!product?.is_approved">
                       <mat-icon class="text-gray-400 icon-size-5" [svgIcon]="'heroicons_solid:x'"></mat-icon>
                     </ng-container>
                   </div>
                   <!-- Active -->
                   <div class="hidden lg:block">
-                    <ng-container *ngIf="product.status">
+                    <ng-container *ngIf="product?.status">
                       <mat-icon class="text-green-400 icon-size-5" [svgIcon]="'heroicons_solid:check'"></mat-icon>
                     </ng-container>
-                    <ng-container *ngIf="!product.status">
+                    <ng-container *ngIf="!product?.status">
                       <mat-icon class="text-gray-400 icon-size-5" [svgIcon]="'heroicons_solid:x'"></mat-icon>
                     </ng-container>
                   </div>
                   <!-- Details button -->
-                  <div><button class="min-w-10 min-h-7 h-7 px-2 leading-6" mat-stroked-button (click)="toggleDetails(product, true)"> <mat-icon class="icon-size-5" [svgIcon]="selectedProduct?.id === product.id ? 'heroicons_solid:chevron-up' : 'heroicons_solid:chevron-down'"></mat-icon></button></div>
+                  <div><button class="min-w-10 min-h-7 h-7 px-2 leading-6" mat-stroked-button (click)="toggleDetails(product, true)"> <mat-icon class="icon-size-5" [svgIcon]="selectedProduct?.id === product?.id ? 'heroicons_solid:chevron-up' : 'heroicons_solid:chevron-down'"></mat-icon></button></div>
                 </div>
 
                 <div class="grid">
-                  <ng-container *ngIf="selectedProduct?._id === product._id">
+                  <ng-container *ngIf="selectedProduct?._id === product?._id">
                     <ng-container *ngTemplateOutlet="rowDetailsTemplate; context: {$implicit: product}"></ng-container>
                   </ng-container>
                 </div>
@@ -260,7 +262,7 @@
                         <div class="space-y-1.5">
                           <h3 class="text-lg font-bold">Terms & Conditions</h3>
                           <div class="p-3.5 xl:p-5 bg-white rounded-md">
-                            <div [innerHTML]="(selectedProduct.tandc.t_and_c) ? selectedProduct.tandc.t_and_c : 'N/A'"></div>
+                            <div [innerHTML]="(selectedProduct?.tandc?.t_and_c) ? selectedProduct?.tandc?.t_and_c : 'N/A'"></div>
                           </div>
                         </div>
                         <!-- Social-Media -->
@@ -277,7 +279,7 @@
                                       </svg>
                                     </div>
                                   </div>
-                                  <input type="text" class="w-full outline-none text-gray-900 font-semibold" [value]="(selectedProduct.tandc.facebook) ? selectedProduct.tandc.facebook : 'N/A'" placeholder="Enter URL" disabled />
+                                  <input type="text" class="w-full outline-none text-gray-900 font-semibold" [value]="(selectedProduct?.tandc?.facebook) ? selectedProduct?.tandc?.facebook : 'N/A'" placeholder="Enter URL" disabled />
                                 </div>
                               </div>
                               <div class="w-full md:w-1/2 p-2">
@@ -297,7 +299,7 @@
                                       </svg>
                                     </div>
                                   </div>
-                                  <input type="text" class="w-full outline-none text-gray-900 font-semibold" [value]="(selectedProduct.tandc.youtube) ? selectedProduct.tandc.youtube : 'N/A'" placeholder="Enter URL" disabled />
+                                  <input type="text" class="w-full outline-none text-gray-900 font-semibold" [value]="(selectedProduct?.tandc?.youtube) ? selectedProduct?.tandc?.youtube : 'N/A'" placeholder="Enter URL" disabled />
                                 </div>
                               </div>
                               <div class="w-full md:w-1/2 p-2">
@@ -309,7 +311,7 @@
                                       </svg>
                                     </div>
                                   </div>
-                                  <input type="text" class="w-full outline-none text-gray-900 font-semibold" [value]="(selectedProduct.tandc.twitter) ? selectedProduct.tandc.twitter : 'N/A'" placeholder="Enter URL" disabled />
+                                  <input type="text" class="w-full outline-none text-gray-900 font-semibold" [value]="(selectedProduct?.tandc?.twitter) ? selectedProduct?.tandc?.twitter : 'N/A'" placeholder="Enter URL" disabled />
                                 </div>
                               </div>
                               <div class="w-full md:w-1/2 p-2">
@@ -321,7 +323,7 @@
                                       </svg>
                                     </div>
                                   </div>
-                                  <input type="text" class="w-full outline-none text-gray-900 font-semibold" [value]="(selectedProduct.tandc.pinterest) ? selectedProduct.tandc.pinterest : 'N/A'" placeholder="Enter URL" disabled />
+                                  <input type="text" class="w-full outline-none text-gray-900 font-semibold" [value]="(selectedProduct?.tandc?.pinterest) ? selectedProduct?.tandc?.pinterest : 'N/A'" placeholder="Enter URL" disabled />
                                 </div>
                               </div>
                               <div class="w-full md:w-1/2 p-2">
@@ -346,7 +348,7 @@
                                       </svg>
                                     </div>
                                   </div>
-                                  <input type="text" class="w-full outline-none text-gray-900 font-semibold" [value]="(selectedProduct.tandc.instagram) ? selectedProduct.tandc.instagram : 'N/A'" placeholder="Enter URL" disabled />
+                                  <input type="text" class="w-full outline-none text-gray-900 font-semibold" [value]="(selectedProduct?.tandc?.instagram) ? selectedProduct?.tandc?.instagram : 'N/A'" placeholder="Enter URL" disabled />
                                 </div>
                               </div>
                               <div class="w-full md:w-1/2 p-2">
@@ -358,7 +360,7 @@
                                       </svg>
                                     </div>
                                   </div>
-                                  <input type="text" class="w-full outline-none text-gray-900 font-semibold" [value]="(selectedProduct.tandc.linkedin) ? selectedProduct.tandc.linkedin : 'N/A'" placeholder="Enter URL" disabled />
+                                  <input type="text" class="w-full outline-none text-gray-900 font-semibold" [value]="(selectedProduct?.tandc?.linkedin) ? selectedProduct?.tandc?.linkedin : 'N/A'" placeholder="Enter URL" disabled />
                                 </div>
                               </div>
                             </div>
@@ -424,8 +426,8 @@
                       <span class="ml-2">An error occurred, try again!</span>
                     </ng-container>
                   </div>
-                  <button mat-flat-button [color]="'primary'" class="ml-4" (click)="approve(selectedProduct)" *ngIf="!selectedProduct.is_approved">Approve</button>
-                  <button mat-flat-button [color]="'accent'" class="ml-4" (click)="disapprove(selectedProduct)" *ngIf="selectedProduct.is_approved">Disapprove</button>
+                  <button mat-flat-button [color]="'primary'" class="ml-4" (click)="approve(selectedProduct)" *ngIf="!selectedProduct?.is_approved">Approve</button>
+                  <button mat-flat-button [color]="'accent'" class="ml-4" (click)="disapprove(selectedProduct)" *ngIf="selectedProduct?.is_approved">Disapprove</button>
                 </div>
               </div>
 
