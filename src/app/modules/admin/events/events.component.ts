@@ -140,7 +140,7 @@ export class EventsComponent implements OnInit {
         const product = organizerObj;
         const index = this.products.findIndex((item: any) => item.id === product._id);
         if (product._id != '' && index != -1) {
-          this._apiService.approve(product._id).subscribe(() => {
+          this._apiService.approve(product._id).subscribe((result: any) => {
             if (result && result.IsSuccess) {
               this.products[index].is_approved = true;
             }
@@ -170,8 +170,7 @@ export class EventsComponent implements OnInit {
       if (result === 'confirmed') {
         // Get the product object
         const product = organizerObj;
-        const index = this.products.findIndex((item: any) => item._id === product._id);
-        
+        const index = this.products.findIndex((item: any) => item.id === product._id);
         if (product._id != '' && index != -1) {
           this._apiService.disapprove(product._id).subscribe((result: any) => {
             if (result && result.IsSuccess) {
