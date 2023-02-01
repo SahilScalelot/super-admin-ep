@@ -141,6 +141,9 @@ export class EventsComponent implements OnInit {
         const index = this.products.findIndex((item: any) => item.id === product._id);
         if (product._id != '' && index != -1) {
           this._apiService.approve(product._id).subscribe(() => {
+            if (result && result.IsSuccess) {
+              this.products[index].is_approved = true;
+            }
           });
         }
         this.closeDetails();
@@ -171,6 +174,9 @@ export class EventsComponent implements OnInit {
         
         if (product._id != '' && index != -1) {
           this._apiService.disapprove(product._id).subscribe((result: any) => {
+            if (result && result.IsSuccess) {
+              this.products[index].is_approved = false;
+            }
           });
         }
         this.closeDetails();
