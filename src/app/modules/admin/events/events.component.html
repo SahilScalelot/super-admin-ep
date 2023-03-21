@@ -175,15 +175,19 @@
                                 <img [src]="constants?.baseImageURL + service?.photos[0].url" [alt]="(service?.name) ? service?.name : 'N/A'" class="w-full h-full object-cover" />
                               </div>
                             </div>
-                            <div class="w-full pl-5">
+                            <div class="w-full pl-5 relative">
                               <div class="flex justify-between">
-                                <h3 class="font-bold text-xl">{{(service?.name) ? service?.name : 'N/A'}}</h3>
+                                <h3 class="font-bold text-base">{{(service?.name) ? service?.name : 'N/A'}}</h3>
                                 <div class="flex items-center space-x-1">
-                                  <h3 class="font-bold text-xl">{{service?.price}} INR {{(service?.price_type && constants?.servicePriceTypeObj[service?.price_type]) ? constants?.servicePriceTypeObj[service?.price_type] : 'N/A'}}</h3>
-                                  <h3 class="font-bold text-xl text-primary">{{service?.quantity}} Qty</h3>
+                                  <h3 class="font-bold text-base">{{service?.price}} INR {{(service?.price_type && constants?.servicePriceTypeObj[service?.price_type]) ? constants?.servicePriceTypeObj[service?.price_type] : 'N/A'}}</h3>
+                                  <h3 class="font-bold text-base text-primary">{{service?.quantity}} Qty</h3>
                                 </div>
                               </div>
                               <p class="text-gray-400 text-sm font-normal leading-6 pt-3">{{(service?.description) ? service?.description : 'N/A'}}</p>
+                              <div class="flex justify-end">
+                                <button mat-flat-button [color]="'primary'" class="ml-4" (click)="approveService(service, i)" *ngIf="!service?.is_approved">Approve</button>
+                                <button mat-flat-button [color]="'accent'" class="ml-4" (click)="disapproveService(service, i)" *ngIf="service?.is_approved">Disapprove</button>
+                              </div>
                             </div>
                           </div>
                         </div>

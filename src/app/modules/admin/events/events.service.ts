@@ -26,6 +26,14 @@ export class EventsService {
     return this.http.post(environment.appURL + 'superadmin/event/disapprove', {eventid: id}, this._globalFunctions.getAuthorizationHeader());
   }
 
+  approveService(id: any = ''): any {
+    return this.http.post(environment.appURL + 'superadmin/service/approve', {serviceid: id}, this._globalFunctions.getAuthorizationHeader());
+  }
+
+  disapproveService(id: any = ''): any {
+    return this.http.post(environment.appURL + 'superadmin/service/disapprove', {serviceid: id}, this._globalFunctions.getAuthorizationHeader());
+  }
+
   delete(id: any = ''): any {
     return this.http.post(environment.appURL + 'superadmin/event/remove', {eventid: id}, this._globalFunctions.getAuthorizationHeader());
   }
