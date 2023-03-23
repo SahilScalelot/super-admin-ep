@@ -166,8 +166,33 @@
                             </div>
                           </div>
                         </div>
+                        <!-- Items -->
+                        <div class="space-y-1.5" *ngIf="selectedProduct?.items?.length">
+                          <h3 class="text-lg font-bold">Items</h3>
+                          <div class="flex justify-between bg-white rounderd px-4 py-3" *ngFor="let item of selectedProduct?.items, let i = index;">
+                            <div class="">
+                              <div class="w-28 h-28 border-2 border-gray-100 rounded-md">
+                                <img [src]="constants?.baseImageURL + item?.photos[0].url" [alt]="(item?.name) ? item?.name : 'N/A'" class="w-full h-full object-cover" />
+                              </div>
+                            </div>
+                            <div class="w-full pl-5 relative">
+                              <div class="flex justify-between">
+                                <h3 class="font-bold text-base">{{(item?.name) ? item?.name : 'N/A'}}</h3>
+                                <div class="flex items-center space-x-1">
+                                  <h3 class="font-bold text-base">{{item?.price}} INR {{(item?.price_type && constants?.servicePriceTypeObj[item?.price_type]) ? constants?.servicePriceTypeObj[item?.price_type] : 'N/A'}}</h3>
+                                  <h3 class="font-bold text-base text-primary">{{item?.quantity}} Qty</h3>
+                                </div>
+                              </div>
+                              <p class="text-gray-400 text-sm font-normal leading-6 pt-3">{{(item?.description) ? item?.description : 'N/A'}}</p>
+                              <div class="flex justify-end">
+                                <button mat-flat-button [color]="'primary'" class="ml-4" (click)="approveItem(item, i)" *ngIf="!item?.is_approved">Approve</button>
+                                <button mat-flat-button [color]="'accent'" class="ml-4" (click)="disapproveItem(item, i)" *ngIf="item?.is_approved">Disapprove</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                         <!-- Service -->
-                        <div class="space-y-1.5">
+                        <div class="space-y-1.5" *ngIf="selectedProduct?.services?.length">
                           <h3 class="text-lg font-bold">Service</h3>
                           <div class="flex justify-between bg-white rounderd px-4 py-3" *ngFor="let service of selectedProduct?.services, let i = index;">
                             <div class="">
@@ -187,6 +212,31 @@
                               <div class="flex justify-end">
                                 <button mat-flat-button [color]="'primary'" class="ml-4" (click)="approveService(service, i)" *ngIf="!service?.is_approved">Approve</button>
                                 <button mat-flat-button [color]="'accent'" class="ml-4" (click)="disapproveService(service, i)" *ngIf="service?.is_approved">Disapprove</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- Equipments -->
+                        <div class="space-y-1.5" *ngIf="selectedProduct?.equipments?.length">
+                          <h3 class="text-lg font-bold">Equipments</h3>
+                          <div class="flex justify-between bg-white rounderd px-4 py-3" *ngFor="let equipment of selectedProduct?.equipments, let i = index;">
+                            <div class="">
+                              <div class="w-28 h-28 border-2 border-gray-100 rounded-md">
+                                <img [src]="constants?.baseImageURL + equipment?.photos[0].url" [alt]="(equipment?.name) ? equipment?.name : 'N/A'" class="w-full h-full object-cover" />
+                              </div>
+                            </div>
+                            <div class="w-full pl-5 relative">
+                              <div class="flex justify-between">
+                                <h3 class="font-bold text-base">{{(equipment?.name) ? equipment?.name : 'N/A'}}</h3>
+                                <div class="flex items-center space-x-1">
+                                  <h3 class="font-bold text-base">{{equipment?.price}} INR {{(equipment?.price_type && constants?.servicePriceTypeObj[equipment?.price_type]) ? constants?.servicePriceTypeObj[equipment?.price_type] : 'N/A'}}</h3>
+                                  <h3 class="font-bold text-base text-primary">{{equipment?.quantity}} Qty</h3>
+                                </div>
+                              </div>
+                              <p class="text-gray-400 text-sm font-normal leading-6 pt-3">{{(equipment?.description) ? equipment?.description : 'N/A'}}</p>
+                              <div class="flex justify-end">
+                                <button mat-flat-button [color]="'primary'" class="ml-4" (click)="approveEquipment(equipment, i)" *ngIf="!equipment?.is_approved">Approve</button>
+                                <button mat-flat-button [color]="'accent'" class="ml-4" (click)="disapproveEquipment(equipment, i)" *ngIf="equipment?.is_approved">Disapprove</button>
                               </div>
                             </div>
                           </div>
