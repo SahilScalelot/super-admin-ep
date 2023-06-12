@@ -106,13 +106,39 @@ export const CONSTANTS = {
   },
 
   eventTypeObj: {
-    b2b: 0,
-    public_party: 1
+    have_you_places: 'Have You Places',
+    group_skills_business: 'Group Skills Business',
+    personal_skills_business: 'Personal Skills Business',
   },
 
   eventTypeArr: [
-    {value: 'b2b', label: 'B2B', displayLabel: 'B2B'},
-    {value: 'public_party', label: 'Public Party', displayLabel: 'PP'}
+    {value: 'have_you_places', label: 'Have You Places'},
+    {value: 'group_skills_business', label: 'Group Skills Business'},
+    {value: 'personal_skills_business', label: 'Personal Skills Business'},
+  ],
+
+  capacityObj: {
+    romantic_candlelight_dinner: 'Romantic Candlelight Dinner',
+    romantic_stay: 'Romantic Stays',
+    romantic_lunch_dinner: 'Romantic Lunch Dinner',
+  },
+
+  capacityArr: [
+    {value: 'romantic_candlelight_dinner', label: 'Romantic Candlelight Dinner'},
+    {value: 'romantic_stay', label: 'Romantic Stay'},
+    {value: 'romantic_lunch_dinner', label: 'Romantic Lunch Dinner'},
+  ],
+
+  servicePriceTypeObj: {
+    per_day: 'P/D',
+    per_person: 'P/P',
+    per_event: 'P/E',
+  },
+
+  servicePriceTypeArr: [
+    {value: 'per_day', label: 'P/D'},
+    {value: 'per_person', label: 'P/P'},
+    {value: 'per_event', label: 'P/E'},
   ],
 
   verticalLocationsObj: {

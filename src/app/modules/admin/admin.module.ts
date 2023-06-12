@@ -21,6 +21,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { EventBookingCouponsComponent } from './event-booking-coupons/event-booking-coupons.component';
 import { OrganizerComponent } from './organizer/organizer.component';
 import { EventsComponent } from './events/events.component';
+import { MatSelectModule } from '@angular/material/select';
+import { AgentComponent } from './agent/agent.component';
 
 const routes: Route[] = [
   {
@@ -51,6 +53,9 @@ const routes: Route[] = [
     path: 'organizer',
     component: OrganizerComponent
   },{
+    path: 'agents',
+    component: AgentComponent
+  }, {
     path: 'events',
     component: EventsComponent
   }
@@ -66,7 +71,8 @@ const routes: Route[] = [
     NotificationCouponsComponent,
     EventBookingCouponsComponent,
     OrganizerComponent,
-    EventsComponent
+    EventsComponent,
+    AgentComponent
   ],
   imports: [
     RouterModule.forChild(routes),
@@ -82,7 +88,8 @@ const routes: Route[] = [
     MatSortModule,
     MatButtonModule,
     MatDatepickerModule,
-    MatMomentDateModule
+    MatMomentDateModule,
+    MatSelectModule
   ]
 })
 export class AdminModule { }

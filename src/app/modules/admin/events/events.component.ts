@@ -23,6 +23,7 @@ export class EventsComponent implements OnInit {
   searchInputControl: FormControl = new FormControl();
 
   products: any;
+  productsService: any;
   selectedProduct: any;
   discountsForm: any;
 
@@ -60,9 +61,7 @@ export class EventsComponent implements OnInit {
     this.isLoading = true;
     this._apiService.getList(this.filterObj).subscribe((result: any) => {
       if (result && result.IsSuccess) {
-        this.products = result.Data.docs;
-        console.log(result.Data.docs);
-        
+        this.products = result.Data.docs;        
         const pagination: any = this._globalFunctions.copyObject(result.Data);
         delete pagination.docs;
         this.pagination = pagination;
@@ -142,14 +141,11 @@ export class EventsComponent implements OnInit {
         const product = organizerObj;
         const index = this.products.findIndex((item: any) => item.id === product._id);
         if (product._id != '' && index != -1) {
-          this.products.splice(index, 1);
-          // Delete the product on the server
-          this._apiService.approve(product._id).subscribe(() => {
-            // Close the details
-            this.closeDetails();
+          this._apiService.approve(product._id).subscribe((result: any) => {
+            if (result && result.IsSuccess) {
+              this.products[index].is_approved = true;
+            }
           });
-        } else if (product._id == '') {
-          this.products.splice(0, 1);
         }
         this.closeDetails();
       } else {
@@ -175,15 +171,200 @@ export class EventsComponent implements OnInit {
       if (result === 'confirmed') {
         // Get the product object
         const product = organizerObj;
-        const index = this.products.findIndex((item: any) => item._id === product._id);
-        
+        const index = this.products.findIndex((item: any) => item.id === product._id);
         if (product._id != '' && index != -1) {
           this._apiService.disapprove(product._id).subscribe((result: any) => {
+            if (result && result.IsSuccess) {
+              this.products[index].is_approved = false;
+            }
           });
         }
         this.closeDetails();
       } else {
         this.closeDetails();
+      }
+    });
+  }
+
+  // Service
+  approveService(organizerObj: any, index: number): void {
+    // Open the confirmation dialog
+    const confirmation = this._fuseConfirmationService.open({
+      title: 'Approve Service',
+      message: 'Are you sure you want to Approve this service.',
+      actions: {
+        confirm: {
+          label: 'Approve'
+        }
+      }
+    });
+    // Subscribe to the confirmation dialog closed action
+    confirmation.afterClosed().subscribe((result) => {
+      // If the confirm button pressed...
+      if (result === 'confirmed') {
+        // Get the product object
+        const product = organizerObj;
+        const selectedServiceIndex = this.products.findIndex((item: any) => item.id === this.selectedProduct._id);
+        if (product._id != '' && index != -1) {
+          this._apiService.approveService(product._id).subscribe((result: any) => {
+            if (result && result.IsSuccess) {
+              this.products[selectedServiceIndex].services[index].is_approved = true;
+              // this.productsService[index].is_approved = true;
+            }
+          });
+        }
+      }
+    });
+  }
+
+  disapproveService(organizerObj: any, index: number): void {
+    // Open the confirmation dialog
+    const confirmation = this._fuseConfirmationService.open({
+      title: 'Disapprove Service',
+      message: 'Are you sure you want to Disapprove this service.',
+      actions: {
+        confirm: {
+          label: 'Disapprove'
+        }
+      }
+    });
+    // Subscribe to the confirmation dialog closed action
+    confirmation.afterClosed().subscribe((result) => {
+      // If the confirm button pressed...
+      if (result === 'confirmed') {
+        // Get the product object
+        const product = organizerObj;
+        const selectedServiceIndex = this.products.findIndex((item: any) => item.id === this.selectedProduct._id);
+        if (product._id != '' && index != -1) {
+          this._apiService.disapproveService(product._id).subscribe((result: any) => {
+            if (result && result.IsSuccess) {
+              this.products[selectedServiceIndex].services[index].is_approved = false;
+              // this.productsService[index].is_approved = true;
+            }
+          });
+        }
+      }
+    });
+  }
+
+  // Items
+  approveItem(organizerObj: any, index: number): void {
+    // Open the confirmation dialog
+    const confirmation = this._fuseConfirmationService.open({
+      title: 'Approve Item',
+      message: 'Are you sure you want to Approve this item.',
+      actions: {
+        confirm: {
+          label: 'Approve'
+        }
+      }
+    });
+    // Subscribe to the confirmation dialog closed action
+    confirmation.afterClosed().subscribe((result) => {
+      // If the confirm button pressed...
+      if (result === 'confirmed') {
+        // Get the product object
+        const product = organizerObj;
+        const selectedServiceIndex = this.products.findIndex((item: any) => item.id === this.selectedProduct._id);
+        if (product._id != '' && index != -1) {
+          this._apiService.approveItem(product._id).subscribe((result: any) => {
+            if (result && result.IsSuccess) {
+              this.products[selectedServiceIndex].items[index].is_approved = true;
+              // this.productsService[index].is_approved = true;
+            }
+          });
+        }
+      }
+    });
+  }
+
+  disapproveItem(organizerObj: any, index: number): void {
+    // Open the confirmation dialog
+    const confirmation = this._fuseConfirmationService.open({
+      title: 'Disapprove Item',
+      message: 'Are you sure you want to Disapprove this item.',
+      actions: {
+        confirm: {
+          label: 'Disapprove'
+        }
+      }
+    });
+    // Subscribe to the confirmation dialog closed action
+    confirmation.afterClosed().subscribe((result) => {
+      // If the confirm button pressed...
+      if (result === 'confirmed') {
+        // Get the product object
+        const product = organizerObj;
+        const selectedServiceIndex = this.products.findIndex((item: any) => item.id === this.selectedProduct._id);
+        if (product._id != '' && index != -1) {
+          this._apiService.disapproveItem(product._id).subscribe((result: any) => {
+            if (result && result.IsSuccess) {
+              this.products[selectedServiceIndex].items[index].is_approved = false;
+              // this.productsService[index].is_approved = true;
+            }
+          });
+        }
+      }
+    });
+  }
+
+  // Equipment
+  approveEquipment(organizerObj: any, index: number): void {
+    // Open the confirmation dialog
+    const confirmation = this._fuseConfirmationService.open({
+      title: 'Approve Equipment',
+      message: 'Are you sure you want to Approve this equipment.',
+      actions: {
+        confirm: {
+          label: 'Approve'
+        }
+      }
+    });
+    // Subscribe to the confirmation dialog closed action
+    confirmation.afterClosed().subscribe((result) => {
+      // If the confirm button pressed...
+      if (result === 'confirmed') {
+        // Get the product object
+        const product = organizerObj;
+        const selectedServiceIndex = this.products.findIndex((item: any) => item.id === this.selectedProduct._id);
+        if (product._id != '' && index != -1) {
+          this._apiService.approveService(product._id).subscribe((result: any) => {
+            if (result && result.IsSuccess) {
+              this.products[selectedServiceIndex].equipments[index].is_approved = true;
+              // this.productsService[index].is_approved = true;
+            }
+          });
+        }
+      }
+    });
+  }
+
+  disapproveEquipment(organizerObj: any, index: number): void {
+    // Open the confirmation dialog
+    const confirmation = this._fuseConfirmationService.open({
+      title: 'Disapprove Equipment',
+      message: 'Are you sure you want to Disapprove this equipment.',
+      actions: {
+        confirm: {
+          label: 'Disapprove'
+        }
+      }
+    });
+    // Subscribe to the confirmation dialog closed action
+    confirmation.afterClosed().subscribe((result) => {
+      // If the confirm button pressed...
+      if (result === 'confirmed') {
+        // Get the product object
+        const product = organizerObj;
+        const selectedServiceIndex = this.products.findIndex((item: any) => item.id === this.selectedProduct._id);
+        if (product._id != '' && index != -1) {
+          this._apiService.disapproveService(product._id).subscribe((result: any) => {
+            if (result && result.IsSuccess) {
+              this.products[selectedServiceIndex].equipments[index].is_approved = false;
+              // this.productsService[index].is_approved = true;
+            }
+          });
+        }
       }
     });
   }
