@@ -1,0 +1,39 @@
+<div class="sm:absolute sm:inset-0 flex flex-col flex-auto min-w-0 sm:overflow-hidden bg-card dark:bg-transparent">
+
+  <!-- Header -->
+  <div class="relative flex flex-col sm:flex-row flex-0 sm:items-center sm:justify-between py-4 px-6 md:px-8 border-b">
+    <!-- Loader -->
+    <div class="absolute inset-x-0 bottom-0" *ngIf="isLoading">
+      <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+    </div>
+    <!-- Title -->
+    <div class="text-4xl font-extrabold tracking-tight truncate">F Coin {{!coinSwitch ? 'Out' : 'In'}}</div>
+    <!-- Actions -->
+    <div class="flex flex-wrap items-center justify-end mt-6 sm:mt-0 sm:ml-4 space-x-9">
+      <div class="flex flex-col items-center justify-center text-gray-800">
+        <div class="text-5xl font-semibold leading-none tracking-tight">{{coinBalance}}</div>
+        <div class="mt-1 text-sm font-medium text-center">Total Coin Balance</div>
+      </div>
+      <div class="py-4">
+        <div class="flex items-center w-full">
+          <span class="font-bold px-5" [ngClass]="{'text-primary' : !coinSwitch}">F-Coin Out</span>
+          <mat-slide-toggle [color]="'primary'" [(ngModel)]="coinSwitch"></mat-slide-toggle>
+          <span class="font-bold px-5" [ngClass]="{'text-primary' : coinSwitch}">F-Coin In</span>
+        </div>
+      </div>
+      <!-- Add product button -->
+      <button class="ml-4" mat-flat-button [color]="'primary'" [routerLink]="['add-coin']">
+        <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
+        <span class="ml-2 mr-1">Add Coins</span>
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="coinSwitch">
+    <coinsin></coinsin>
+  </div>
+  <div *ngIf="!coinSwitch">
+    <coinsout></coinsout>
+  </div>
+
+</div>

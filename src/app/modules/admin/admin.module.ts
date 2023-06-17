@@ -23,6 +23,10 @@ import { OrganizerComponent } from './organizer/organizer.component';
 import { EventsComponent } from './events/events.component';
 import { MatSelectModule } from '@angular/material/select';
 import { AgentComponent } from './agent/agent.component';
+import { FCoinComponent } from './f-coin/f-coin.component';
+import { FAddCoinComponent } from './f-coin/add-coin/add-coin.component';
+import { CoinsInComponent } from './f-coin/coinsin/coinsin.component';
+import { CoinsOutComponent } from './f-coin/coinsout/coinsout.component';
 
 const routes: Route[] = [
   {
@@ -58,6 +62,12 @@ const routes: Route[] = [
   }, {
     path: 'events',
     component: EventsComponent
+  }, {
+    path: 'f-coin',
+    component: FCoinComponent
+  }, {
+    path: 'f-coin/add-coin',
+    component: FAddCoinComponent
   }
 ];
 
@@ -72,7 +82,11 @@ const routes: Route[] = [
     EventBookingCouponsComponent,
     OrganizerComponent,
     EventsComponent,
-    AgentComponent
+    AgentComponent,
+    FCoinComponent,
+    FAddCoinComponent,
+    CoinsInComponent,
+    CoinsOutComponent
   ],
   imports: [
     RouterModule.forChild(routes),
