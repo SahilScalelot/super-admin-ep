@@ -60,7 +60,7 @@ export class OrganizerComponent implements OnInit {
     this.isLoading = true;
     this._apiService.getList(this.filterObj).subscribe((result: any) => {
       if (result && result.IsSuccess) {
-        this.products = result.Data.docs;        
+        this.products = result.Data.docs;
         const pagination: any = this._globalFunctions.copyObject(result.Data);
         delete pagination.docs;
         this.pagination = pagination;
@@ -71,6 +71,23 @@ export class OrganizerComponent implements OnInit {
     }, (error: any) => {
       this._globalFunctions.errorHanding(error, this, true);
       this.isLoading = false;
+    });
+  }
+
+  exceldawnload(): any{
+    this._apiService.export(Blob).subscribe(async (results: any) => {
+        // console.log('Data is received - Result - ',results);
+        if (results && results.IsSuccess) {
+             const href = results.Data;
+             const anchorElement = document.createElement('a');
+             anchorElement.href = href;
+            //  anchorElement.target = '_blank';
+            //  anchorElement.download ="";
+             document.body.appendChild(anchorElement);
+             anchorElement.click();
+             document.body.removeChild(anchorElement);
+             window.URL.revokeObjectURL(href);
+        }
     });
   }
 
@@ -96,7 +113,7 @@ export class OrganizerComponent implements OnInit {
     this.selectedProduct = null;
   }
 
-  toggleDetails(item: any = {}): void {    
+  toggleDetails(item: any = {}): void {
     // If the product is already selected...
     const tmpSelectedProduct: any = this._globalFunctions.copyObject(this.selectedProduct || {});
     if (tmpSelectedProduct && tmpSelectedProduct._id === item._id) {
@@ -174,7 +191,7 @@ export class OrganizerComponent implements OnInit {
         // Get the product object
         const product = organizerObj;
         const index = this.products.findIndex((item: any) => item._id === product._id);
-        
+
         if (product._id != '' && index != -1) {
           this._apiService.disapprove(product._id).subscribe((result: any) => {
           });
@@ -206,7 +223,7 @@ export class OrganizerComponent implements OnInit {
         const index = this.products.findIndex((item: any) => item.id === product._id);
         if (product._id != '' && index != -1) {
           this.products.splice(index, 1);
-          
+
           // Delete the product on the server
           this._apiService.delete(product._id).subscribe((result: any) => {
             if (result && result.IsSuccess) {
